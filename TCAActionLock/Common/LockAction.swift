@@ -5,7 +5,10 @@ public enum ActionLockMode {
   /// The action does not affect locking state.
   case none
   /// The action requests a lock to be acquired.
-  case lock
+  /// If a lock is already held, the action may be ignored or deferred.
+  case exclusiveLock
+  /// The action requests a **reentrant** lock to be acquired.
+  case cancellableLock
   /// The action requests a previously acquired lock to be released.
   case unlock
 }

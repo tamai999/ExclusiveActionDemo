@@ -29,15 +29,24 @@ public struct LockReduce<State: LockState, Action: LockAction>: Reducer {
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     // Determine what kind of lock operation (if any) is required by the action
     switch action.lockMode {
-    case .lock:
-      if state.isLocked {
+    case .exclusiveLock:
+      if state.lockLevel == .exclusive {
         print("🔒 Action skipped: already locked.")
         return .none
       } else {
-        print("🔒 Lock acquired.")
-        state.lock()
+        print("🔒 Exclusive Lock acquired.")
+        state.exclusiveLock()
       }
 
+    case .cancellableLock:
+      if state.lockLevel == .exclusive {
+        print("🔒 Action skipped: already locked.")
+        return .none
+      } else {
+        print("🔒 Cancellable Lock acquired.")
+        state.cancellableLock()
+      }
+      
     case .unlock:
       print("🔓 Lock released.")
       state.unlock()
