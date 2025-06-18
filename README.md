@@ -1,4 +1,4 @@
-# ExclusiveActionDemo
+# TCA mutual exclusion of actions Demo
 
 A sample project demonstrating **mutual exclusion of actions** in [The Composable Architecture (TCA)](https://github.com/pointfreeco/swift-composable-architecture).
 
